@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SnapShot</title>
+    <!-- Link to external CSS for styling -->
+    <link rel="stylesheet" href="sign.css">
+    <!-- Favicon for the website -->
+    <link rel="icon" href="assets/icon.png" type="image/x-icon" />
+</head>
+<body>
+
+<!-- Container for Sign Up and Login forms -->
+<div class="signlogcontainer">
+    <section class="signlog">
+        <!-- Sign Up Form -->
+        <div id="signup" class="page">
+            <div class="form-container">
+                <h2>Sign Up</h2>
+                <!-- Input fields for name, email, and password -->
+                <input type="text" id="signup-name" placeholder="Enter your name" required>
+                <input type="email" id="signup-email" placeholder="Enter your email" required>
+                <input type="password" id="signup-password" placeholder="Enter your password" required>
+                <!-- Sign Up button -->
+                <button id="signup-btn">Sign Up</button>
+                <!-- Error message for sign up -->
+                <p id="signup-error" style="display: none;">Please fill in all fields.</p>
+            </div>
+        </div>
+
+        <!-- Login Form -->
+        <div id="login" class="page hidden">
+            <div class="form-container">
+                <h2>Login</h2>
+                <!-- Input fields for email and password -->
+                <input type="email" id="login-email" placeholder="Enter your email" required>
+                <input type="password" id="login-password" placeholder="Enter your password" required>
+                <!-- Login button -->
+                <button id="login-btn">Login</button>
+                <!-- Error message for login -->
+                <p id="login-error" style="display: none;">Invalid email or password.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    // Sign Up Functionality
+    document.getElementById('signup-btn').addEventListener('click', async () => {
+        const name = document.getElementById('signup-name').value.trim(); // Get name input
+        const email = document.getElementById('signup-email').value.trim(); // Get email input
+        const password = document.getElementById('signup-password').value.trim(); // Get password input
+        const error = document.getElementById('signup-error'); // Reference to error message element
+
+        if (name && email && password) { // Check if all fields are filled
+            try {
+                const response = await fetch('/api/user/', { // API call for sign up
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ name, email, password }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Sign Up Successful! Redirecting to Login page...');
+                    // Clear input fields after successful sign up
+                    document.getElementById('signup-name').value = '';
+                    document.getElementById('signup-email').value = '';
+                    document.getElementById('signup-password').value = '';
+                    error.style.display = 'none'; // Hide error message
+                    // Switch to login form
+                    document.getElementById('signup').classList.add('hidden');
+                    document.getElementById('login').classList.remove('hidden');
+                } else {
+                    // Show error message from API response
+                    error.textContent = data.message || 'Sign Up Failed!';
+                    error.style.display = 'block';
+                }
+            } catch (err) {
+                // Handle network or server errors
+                error.textContent = 'An error occurred. Please try again later.';
+                error.style.display = 'block';
+            }
+        } else {
+            // Show error message if fields are empty
+            error.textContent = 'All fields are required!';
+            error.style.display = 'block';
+        }
+    });
+
+    // Login Functionality
+    document.getElementById('login-btn').addEventListener('click', async () => {
+        const email = document.getElementById('login-email').value.trim(); // Get email input
+        const password = document.getElementById('login-password').value.trim(); // Get password input
+        const error = document.getElementById('login-error'); // Reference to error message element
+
+        if (email && password) { // Check if all fields are filled
+            try {
+                const response = await fetch('/api/user/login', { // API call for login
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert(`Welcome back, ${data.user.name}!`);
+                    error.style.display = 'none'; // Hide error message
+                    localStorage.setItem('user', JSON.stringify(data)); // Store user data locally
+
+                    // Redirect to homepage after successful login
+                    window.location.href = './index.html';
+                } else {
+                    // Show error message from API response
+                    error.textContent = data.message || 'Invalid email or password.';
+                    error.style.display = 'block';
+                }
+            } catch (err) {
+                // Handle network or server errors
+                error.textContent = 'An error occurred. Please try again later.';
+                error.style.display = 'block';
+            }
+        } else {
+            // Show error message if fields are empty
+            error.textContent = 'All fields are required!';
+            error.style.display = 'block';
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Sets the character encoding to UTF-8 for compatibility -->
+  <meta charset="UTF-8" />
+  <!-- Enables responsive design by setting the viewport properties -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="assets/icon.png" type="image/x-icon" />
+  <!-- Link to Remixicon for icon fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+  <!-- Link to Swiper's stylesheet for the review slider -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <!-- Link to external stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Page title -->
+  <title>SnapShot</title>
+</head>
+
+<body>
+  <!-- Navigation bar -->
+  <nav>
+    <div class="nav__header">
+      <!-- Logo section -->
+      <div class="nav__logo">
+        <a href="#" class="logo">SnapShot</a>
+      </div>
+      <!-- Mobile menu button -->
+      <div class="nav__menu__btn" id="menu-btn">
+        <i class="ri-menu-line"></i>
+      </div>
+    </div>
+    <!-- Navigation links -->
+    <ul class="nav__links" id="nav-links">
+      <li><a href="#home">HOME</a></li>
+      <li><a href="#about">ABOUT</a></li>
+      <li><a href="#service">SERVICE</a></li>
+      <li><a href="#cameras">CAMERAS</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+      <li><a href="Signup.html">SIGN UP</a></li>
+    </ul>
+    <!-- Sign-up button -->
+    <div class="nav__btns">
+      <button class="btn"><a href="Signup.html">SIGN UP</a></button>
+    </div>
+  </nav>
+
+  <!-- Header section -->
+  <header id="home">
+    <div class="header__container">
+      <div class="header__content">
+        <!-- Introductory text -->
+        <p>Unleash Your Creativity with the Best Cameras.</p>
+        <h1>Turn Every Moment into a Masterpiece!</h1>
+        <!-- Call-to-action buttons -->
+        <div class="header__btns">
+          <button class="btn">Inquire Now!</button>
+          <a href="#contact">
+            <span><i class="ri-play-circle-fill"></i></span>
+          </a>
+        </div>
+      </div>
+      <!-- Image section -->
+      <div class="header__image">
+        <img src="assets/blackcam.png" alt="header" />
+      </div>
+    </div>
+  </header>
+
+  <!-- Bestsellers section -->
+  <section class="section__container bestsellers__container" id="about">
+    <h2 class="section__header">Our bestsellers</h2>
+    <p class="section__description">Find Your Perfect Camera</p>
+    <div class="bestsellers__grid">
+      <!-- Bestseller card 1 -->
+      <div class="bestsellers__card">
+        <img src="assets/blackcam.png" alt="bestsellers" />
+        <div class="bestsellers__card__details">
+          <div>
+            <h4>Polaroid Go Instant Camera</h4>
+            <p>Black</p>
+          </div>
+          <div class="bestsellers__rating">
+            <span><i class="ri-star-fill"></i></span>
+            4.7
+          </div>
+        </div>
+      </div>
+      <!-- Bestseller card 2 -->
+      <div class="bestsellers__card">
+        <img src="assets/coloredcam.png" alt="bestsellers" />
+        <div class="bestsellers__card__details">
+          <div>
+            <h4>Polaroid Now i‑Type Instant Camera</h4>
+            <p> Yellow</p>
+          </div>
+          <div class="bestsellers__rating">
+            <span><i class="ri-star-fill"></i></span>
+            4.5
+          </div>
+        </div>
+      </div>
+      <!-- Bestseller card 3 -->
+      <div class="bestsellers__card">
+        <img src="assets/cam6.png" alt="bestsellers" />
+        <div class="bestsellers__card__details">
+          <div>
+            <h4>Polaroid Go Generation 2 Instant Camera</h4>
+            <p>White</p>
+          </div>
+          <div class="bestsellers__rating">
+            <span><i class="ri-star-fill"></i></span>
+            4.8
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section__container about__container" id="service">
+    <!-- Section header with a title and description -->
+    <h2 class="section__header">More Than Just Cameras</h2>
+    <p class="section__description">
+      Empowering Your Photography Journey
+    </p>
+    <!-- Grid layout for displaying the cards -->
+    <div class="about__grid">
+      <!-- First card: Camera Rental Services -->
+      <div class="about__card">
+        <!-- Background and title of the card -->
+        <div class="about__card__bg">
+          <span><i class="ri-camera-2-fill"></i></span> <!-- Icon -->
+          <h4>Camera Rental Services</h4> <!-- Card title -->
+        </div>
+        <!-- Card content -->
+        <div class="about__card__content">
+          <span><i class="ri-camera-2-fill"></i></span> <!-- Repeated icon for consistency -->
+          <h4>Rent and snap away!</h4> <!-- Subheading -->
+          <p>
+            Explore a wide range of professional-grade cameras, lenses, and accessories available for rent. Whether
+            you're capturing a wedding, filming a commercial, or trying a new camera before purchasing, we have the
+            equipment you need.
+          </p>
+        </div>
+      </div>
+  
+      <!-- Second card: Photography Workshops and Tutorials -->
+      <div class="about__card">
+        <!-- Background and title of the card -->
+        <div class="about__card__bg">
+          <span><i class="ri-presentation-fill"></i></span> <!-- Icon -->
+          <h4>Photography Workshops and Tutorials</h4> <!-- Card title -->
+        </div>
+        <!-- Card content -->
+        <div class="about__card__content">
+          <span><i class="ri-presentation-fill"></i></span> <!-- Repeated icon for consistency -->
+          <h4>Learn from professionals</h4> <!-- Subheading -->
+          <p>
+            Learn the art of photography from seasoned professionals. Perfect for beginners and advanced photographers
+            alike.
+          </p>
+        </div>
+      </div>
+  
+      <!-- Third card: Custom Camera Setup Assistance -->
+      <div class="about__card">
+        <!-- Background and title of the card -->
+        <div class="about__card__bg">
+          <span><i class="ri-customer-service-fill"></i></span> <!-- Icon -->
+          <h4>Custom Camera Setup Assistance</h4> <!-- Card title -->
+        </div>
+        <!-- Card content -->
+        <div class="about__card__content">
+          <span><i class="ri-customer-service-fill"></i></span> <!-- Repeated icon for consistency -->
+          <h4>Tailored Setup</h4> <!-- Subheading -->
+          <p>
+            Let us help you customize your camera’s settings for your specific photography style—whether it’s wildlife,
+            astrophotography, or videography.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section__container service__container" id="cameras">
+    <!-- Section containing an image and text content for showcasing services -->
+    <div class="service__image">
+      <!-- Image related to the service -->
+      <img src="assets/showcase1.jpg" alt="service" />
+    </div>
+    <div class="service__content">
+      <!-- Section header -->
+      <h4>Unleash Your Vision with SnapShot</h4>
+      <!-- Descriptive paragraphs about the service -->
+      <p>
+        Every great photograph starts with the right gear. At SnapShot, we’re here to empower your creativity, whether
+        you're capturing breathtaking landscapes, intimate portraits, or unforgettable moments.
+  
+        Explore our curated collection of cameras, lenses, and accessories tailored for photographers of all skill
+        levels. From innovative mirrorless cameras to versatile lenses, we provide the tools to bring your vision to
+        life.
+      </p>
+      <p>
+        Let us inspire you as you discover the art of storytelling through the lens. Together, let’s turn fleeting
+        moments into lasting masterpieces.
+      </p>
+      <!-- Call-to-action button -->
+      <div class="service__btn">
+        <button class="btn">
+          Shop Cameras Now ➜
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section__container banner__container">
+    <!-- Section with banner-style metrics cards -->
+    <div class="banner__card">
+      <!-- Metric: Years of experience -->
+      <h4>10+</h4>
+      <p>Years Experience</p>
+    </div>
+    <div class="banner__card">
+      <!-- Metric: Happy customers -->
+      <h4>19K</h4>
+      <p>Happy Customers</p>
+    </div>
+    <div class="banner__card">
+      <!-- Metric: Overall ratings -->
+      <h4>4.7</h4>
+      <p>Overall Ratings</p>
+    </div>
+  </section>
+  
+  <section class="section__container more__container">
+    <!-- Section with additional services or features -->
+    <h2 class="section__header">Discover the World Through Your Lens</h2>
+    <p class="section__description">
+      Capture Moments Like Never Before
+    </p>
+    <div class="more__grid">
+      <!-- First card: Professional Photography -->
+      <div class="more__card">
+        <span><i class="ri-camera-lens-line"></i></span> <!-- Icon -->
+        <h4>Professional Photography</h4> <!-- Title -->
+        <p>
+          Master the art of photography with top-tier equipment and expert tutorials tailored for both beginners and
+          professionals.
+        </p>
+      </div>
+      <!-- Second card: Event Memories -->
+      <div class="more__card">
+        <span><i class="ri-calendar-event-fill"></i></span> <!-- Icon -->
+        <h4>Event Memories</h4> <!-- Title -->
+        <p>
+          Rent high-quality cameras to ensure every moment at your events is captured with stunning clarity.
+        </p>
+      </div>
+      <!-- Third card: Custom Gear Setup -->
+      <div class="more__card">
+        <span><i class="ri-polaroid-fill"></i></span> <!-- Icon -->
+        <h4>Custom Gear Setup</h4> <!-- Title -->
+        <p>
+          Personalize your photography equipment to suit your unique style and preferences, with the help of our
+          experts.
+        </p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="section__container review__container">
+    <!-- Section header for reviews -->
+    <h2 class="section__header">Loved by Thousands of Photography Enthusiasts</h2>
+    <p class="section__description">
+      Hear the stories of passion and unforgettable memories shared by our valued clients.
+    </p>
+    <!-- Swiper slider for displaying reviews -->
+    <div class="swiper">
+      <!-- Swiper wrapper that contains all slides -->
+      <div class="swiper-wrapper">
+        <!-- Individual review slide 1 -->
+        <div class="swiper-slide">
+          <div class="review__card">
+            <div class="review__content">
+              <!-- Star rating for the review -->
+              <div class="review__rating">
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+              </div>
+              <!-- Review text -->
+              <p>
+                "SnapShot has completely revolutionized the way I capture moments. From everyday scenes to unforgettable
+                trips, their cameras deliver unmatched quality and ease of use. I can't recommend SnapShot enough for
+                anyone looking to elevate their photography game!"
+              </p>
+            </div>
+            <!-- Reviewer details -->
+            <div class="review__details">
+              <img src="assets/man.jpg" alt="review" />
+              <div>
+                <h4>Stanford Braun</h4>
+                <h5>Travel Blogger</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Individual review slide 2 -->
+        <div class="swiper-slide">
+          <div class="review__card">
+            <div class="review__content">
+              <div class="review__rating">
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+              </div>
+              <p>
+                "My recent photoshoot with SnapShot's equipment was a dream come true! The high-quality lenses and
+                intuitive design allowed me to capture every detail beautifully. I'm already planning my next
+                photography session!"
+              </p>
+            </div>
+            <div class="review__details">
+              <img src="assets/woman.jpg" alt="review" />
+              <div>
+                <h4>Abbie Larson</h4>
+                <h5>Adventure Enthusiast</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Individual review slide 3 -->
+        <div class="swiper-slide">
+          <div class="review__card">
+            <div class="review__content">
+              <div class="review__rating">
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+              </div>
+              <p>
+                "SnapShot provided the perfect tools for my documentary project. Their customizable gear and expert
+                support helped me bring my vision to life with stunning clarity and precision. I highly recommend
+                SnapShot to all photography enthusiasts!"
+              </p>
+            </div>
+            <div class="review__details">
+              <img src="assets/woman2.jpg" alt="review" />
+              <div>
+                <h4>Naomie Littel</h4>
+                <h5>Cultural Historian</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Individual review slide 4 -->
+        <div class="swiper-slide">
+          <div class="review__card">
+            <div class="review__content">
+              <div class="review__rating">
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+                <span><i class="ri-star-fill"></i></span>
+              </div>
+              <p>
+                "SnapShot has completely revolutionized the way I capture memories. Their selection of cameras and
+                accessories is unmatched, and their tutorials have taken my photography skills to the next level.
+                Whether I'm documenting family moments or exploring the great outdoors, I can always count on SnapShot
+                to provide the best tools and advice. Highly recommended for beginners and pros alike!"
+              </p>
+            </div>
+            <div class="review__details">
+              <img src="assets/man2.jpg" alt="review" />
+              <div>
+                <h4> Alex Morgan</h4>
+                <h5>Business Executive</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <footer id="contact">
+    <!-- Footer container -->
+    <div class="section__container footer__container">
+      <!-- Footer logo and about text -->
+      <div class="footer__col">
+        <div class="footer__logo">
+          <a href="#" class="logo">SnapShot</a>
+        </div>
+        <p>
+          Explore the world through the lens of creativity with SnapShot, your ultimate photography platform. Discover
+          innovative cameras, expert tips, and seamless solutions to elevate your photography experience.
+        </p>
+        <!-- Social media links -->
+        <ul class="footer__socials">
+          <li>
+            <a href="#"><i class="ri-facebook-fill"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="ri-instagram-line"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="ri-youtube-line"></i></a>
+          </li>
+        </ul>
+      </div>
+      <!-- Quick links column -->
+      <div class="footer__col">
+        <h4>Quick Links</h4>
+        <ul class="footer__links">
+          <li><a href="#home">HOME</a></li>
+          <li><a href="#about">ABOUT</a></li>
+          <li><a href="#service">SERVICE</a></li>
+          <li><a href="#cameras">CAMERAS</a></li>
+        </ul>
+      </div>
+      <!-- Contact information -->
+      <div class="footer__col">
+        <h4>Contact Us</h4>
+        <ul class="footer__links">
+          <li>
+            <a href="#">
+              <span><i class="ri-phone-fill"></i></span> +971 55 224 8602
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span><i class="ri-record-mail-line"></i></span> support@snapshot.com
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span><i class="ri-map-pin-2-fill"></i></span> RAK, UAE
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Subscription form -->
+      <div class="footer__col">
+        <h4>Subscribe</h4>
+        <form action="/">
+          <input type="text" placeholder="Enter your email" />
+          <button class="btn">Subscribe</button>
+        </form>
+      </div>
+    </div>
+    <!-- Footer copyright -->
+    <div class="footer__bar">
+      Copyright © 2025 Wayeth Ken C. Cabanlit. All rights reserved.
+    </div>
+  </footer>
+  
+  <!-- JavaScript libraries -->
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="main.js"></script>
+  
+  
+</body>
+
+</html>
