@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snapshot Shop</title>
+  <link rel="stylesheet" href="shop.css" />
+</head>
+<body>
+  <header>
+    <h1>🛍️ Snapshot Store</h1>
+    <nav>
+      <button id="viewCartBtn">🛒 View Cart (<span id="cartCount">0</span>)</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="products">
+      <!-- Products will load dynamically -->
+    </section>
+  </main>
+
+  <div id="cartModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Your Cart</h2>
+      <ul id="cartItems"></ul>
+      <p id="totalPrice">Total: $0.00</p>
+      <button id="checkoutBtn">Checkout</button>
+    </div>
+  </div>
+
+  <script src="shop.js"></script>
+</body>
+</html>
