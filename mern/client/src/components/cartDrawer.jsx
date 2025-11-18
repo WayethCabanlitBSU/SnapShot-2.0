@@ -5,6 +5,7 @@ export default function CartDrawer({
   cart,
   closeCart,
   removeFromCart,
+  clearCart,
   onOrderComplete,
 }) {
   const [form, setForm] = useState({
@@ -16,16 +17,13 @@ export default function CartDrawer({
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  // total including quantity
   const total = cart
-    .reduce((sum, item) => sum + item.price, 0)
+    .reduce((sum, item) => sum + item.price * item.quantity, 0)
     .toFixed(2);
 
-  const handleChange = (e) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const handleChange = (e) =>
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,7 +41,7 @@ export default function CartDrawer({
           productId: item.id,
           name: item.name,
           price: item.price,
-          quantity: 1, // each "add" = 1
+          quantity: item.quantity,
         })),
         total: Number(total),
         name: form.name,
@@ -58,16 +56,11 @@ export default function CartDrawer({
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(errText || "Failed to create order");
-      }
+      if (!res.ok) throw new Error(await res.text());
 
-      // const data = await res.json(); // if you want to inspect it
       setMessage("✅ Order placed successfully!");
       setForm({ name: "", email: "", address: "", phone: "" });
 
-      // Clear cart & close drawer (via parent)
       if (onOrderComplete) onOrderComplete();
     } catch (err) {
       console.error(err);
@@ -79,18 +72,27 @@ export default function CartDrawer({
 
   return (
     <div className="fixed top-0 right-0 w-full sm:w-96 h-full bg-white shadow-2xl p-6 z-50">
+
+      {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Your Cart</h2>
-        <button
-          onClick={closeCart}
-          className="text-gray-500 hover:text-black text-xl"
-        >
+        <button onClick={closeCart} className="text-gray-500 hover:text-black text-xl">
           ✕
         </button>
       </div>
 
-      {/* Cart items */}
-      <div className="flex flex-col gap-3 max-h-60 overflow-y-auto pr-2 mb-4">
+      {/* Clear Cart Button */}
+      {cart.length > 0 && (
+        <button
+          onClick={clearCart}
+          className="text-red-600 text-sm mb-2 underline hover:text-red-800"
+        >
+          Clear Cart
+        </button>
+      )}
+
+      {/* Cart Items */}
+      <div className="flex flex-col gap-3 max-h-[60vh] overflow-y-auto pr-2 mb-4">
         {cart.length === 0 ? (
           <p className="text-gray-500">Your cart is empty.</p>
         ) : (
@@ -100,9 +102,15 @@ export default function CartDrawer({
               className="border rounded-xl p-3 flex justify-between items-center"
             >
               <div>
-                <p className="font-semibold">{item.name}</p>
+                <p className="font-semibold">
+                  {item.name}
+                  {item.quantity > 1 && (
+                    <span className="text-gray-500 ml-1">× {item.quantity}</span>
+                  )}
+                </p>
                 <p className="text-sm text-gray-500">${item.price}</p>
               </div>
+
               <button
                 onClick={() => removeFromCart(item)}
                 className="text-red-500 hover:text-red-700 text-sm"
@@ -121,8 +129,8 @@ export default function CartDrawer({
         </p>
       </div>
 
-      {/* Checkout form */}
-      <form onSubmit={handleSubmit} className="space-y-3">
+      {/* Checkout Form */}
+      <form onSubmit={handleSubmit} className="space-y-3 mt-8">
         <h3 className="font-semibold text-lg mb-1">Checkout Details</h3>
 
         <input
@@ -134,6 +142,7 @@ export default function CartDrawer({
           required
           className="w-full bg-gray-100 border border-gray-300 rounded-lg p-2 text-sm"
         />
+
         <input
           type="email"
           name="email"
@@ -143,6 +152,7 @@ export default function CartDrawer({
           required
           className="w-full bg-gray-100 border border-gray-300 rounded-lg p-2 text-sm"
         />
+
         <textarea
           name="address"
           placeholder="Delivery Address"
@@ -151,6 +161,7 @@ export default function CartDrawer({
           required
           className="w-full bg-gray-100 border border-gray-300 rounded-lg p-2 text-sm h-20"
         />
+
         <input
           type="tel"
           name="phone"
@@ -170,9 +181,7 @@ export default function CartDrawer({
         </button>
       </form>
 
-      {message && (
-        <p className="mt-3 text-sm text-gray-700">{message}</p>
-      )}
+      {message && <p className="mt-3 text-sm text-gray-700">{message}</p>}
     </div>
   );
 }
