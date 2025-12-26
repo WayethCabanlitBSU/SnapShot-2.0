@@ -17,6 +17,12 @@ export default function Home() {
   const [cart, setCart] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
 
+  // 🔔 navbar notification
+  const [notif, setNotif] = useState("");
+
+  // 🎉 success popup
+  const [successPopup, setSuccessPopup] = useState(false);
+
   const products = [
     {
       id: 1,
@@ -74,7 +80,6 @@ export default function Home() {
       price: 149.99,
       image: camera7,
     },
-    
     {
       id: 8,
       name: "Fujifilm Instax Mini 99",
@@ -93,7 +98,7 @@ export default function Home() {
     },
   ];
 
-  // ➕ ADD TO CART (increase quantity)
+  // ➕ ADD TO CART
   const addToCart = (product) => {
     setCart((prev) => {
       const exists = prev.find((item) => item.id === product.id);
@@ -109,10 +114,17 @@ export default function Home() {
       return [...prev, { ...product, quantity: 1 }];
     });
 
-    setCartOpen(true); // auto-open drawer
+    // 🔔 SHOW NOTIFICATION
+    setNotif("Added to cart");
+    setTimeout(() => setNotif(""), 1800);
+
+    // Desktop auto-open only
+    if (window.innerWidth > 768) {
+      setCartOpen(true);
+    }
   };
 
-  // ➖ REMOVE FROM CART (decrease quantity)
+  // ➖ REMOVE FROM CART
   const removeFromCart = (product) => {
     setCart((prev) =>
       prev
@@ -126,27 +138,46 @@ export default function Home() {
   };
 
   // 🗑 CLEAR CART
-  const clearCart = () => {
-    setCart([]);
-  };
+  const clearCart = () => setCart([]);
 
-  // After placing order → clear cart + close drawer
+  // 🎉 ORDER COMPLETE HANDLER
   const handleOrderComplete = () => {
     setCart([]);
     setCartOpen(false);
+
+    setSuccessPopup(true);
+    setTimeout(() => setSuccessPopup(false), 1500);
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative">
+
+      {/* NAVBAR */}
       <Navbar openCart={() => setCartOpen(true)} />
 
-      {/* Header */}
+      {/* 🔔 NAVBAR NOTIFICATION */}
+      {notif && (
+        <div className="fixed top-4 right-4 nav-notif animate-fade z-[9999]">
+          {notif}
+        </div>
+      )}
+
+      {/* 🎉 SUCCESS POPUP */}
+      {successPopup && (
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
+                        bg-green-600 text-white px-6 py-3 rounded-xl shadow-xl z-[9999]
+                        animate-fade">
+          Order Placed Successfully! 🎉
+        </div>
+      )}
+
+      {/* HEADER */}
       <section className="text-center mt-12">
         <h1 className="text-4xl font-bold text-gray-900">Our Bestsellers</h1>
         <p className="text-gray-600 mt-2">Find Your Perfect Camera</p>
       </section>
 
-      {/* Products Grid */}
+      {/* PRODUCTS GRID */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-8 py-12">
         {products.map((product) => (
           <ProductCard
@@ -157,7 +188,7 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Cart Drawer */}
+      {/* CART DRAWER */}
       {cartOpen && (
         <CartDrawer
           cart={cart}

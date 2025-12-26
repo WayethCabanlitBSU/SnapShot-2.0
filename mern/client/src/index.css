@@ -2,36 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ====== Global Styles ====== */
+/* Global */
 body {
   background-color: #ffffff;
-  color: #111111;
+  color: #111;
   font-family: 'Inter', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 10px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #aaa;
-}
 
-/* ====== Buttons ====== */
-button {
-  transition: all 0.2s ease;
-}
-
-/* Hover animation for product cards */
+/* Hover animation */
 .product-card {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Fade Notification Animation */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-5px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-5px); }
+}
+
+.animate-fade {
+  animation: fadeInOut 1.5s ease-in-out forwards;
+}
+
+/* Notification styling (NEW – makes it always visible above navbar) */
+.nav-notif {
+  @apply px-3 py-1 rounded-full text-white text-xs shadow-lg;
+  background: #000000;
 }
