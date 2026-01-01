@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./Login.css";
 
+// User login page - authenticates user and stores session
 export default function Login() {
   const [formData, setFormData] = useState({
     email: "",
@@ -14,6 +15,7 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
+  // Update form state as user types
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -22,6 +24,7 @@ export default function Login() {
     }));
   };
 
+  // Authenticate user and save session to localStorage
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);

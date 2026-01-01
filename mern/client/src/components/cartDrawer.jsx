@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Slide-out cart panel with checkout form
 export default function CartDrawer({
   cart,
   closeCart,
@@ -19,13 +20,16 @@ export default function CartDrawer({
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
+  // Calculate total price
   const total = cart
     .reduce((sum, item) => sum + item.price * item.quantity, 0)
     .toFixed(2);
 
+  // Update form fields as user types
   const handleChange = (e) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
+  // Submit order to backend and save to MongoDB
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage("");

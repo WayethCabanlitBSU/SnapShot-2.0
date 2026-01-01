@@ -1,12 +1,14 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+// Navbar component used on Home, Contact, and Orders pages
 export default function LandingNavbar({ openCart }) {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Check localStorage for logged-in user on mount
   useEffect(() => {
     // Check if user is logged in
     const userFromStorage = localStorage.getItem("user");
@@ -38,7 +40,7 @@ export default function LandingNavbar({ openCart }) {
 
   const menuIconClass = isOpen ? "ri-close-line" : "ri-menu-line";
 
-  // Go to landing page then scroll to section
+  // Navigate to landing and scroll to specific section
   const goToSection = (id) => {
     setIsOpen(false);
 
@@ -55,6 +57,7 @@ export default function LandingNavbar({ openCart }) {
     }, 200);
   };
 
+  // Clear user session and redirect to home
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("isLoggedIn");

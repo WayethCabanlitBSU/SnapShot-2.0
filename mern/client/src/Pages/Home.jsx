@@ -13,16 +13,18 @@ import camera7 from "../assets/camera7.jpg";
 import camera8 from "../assets/camera8.jpg";
 import camera9 from "../assets/camera9.jpg";
 
+// Shop page with product catalog and cart
 export default function Home() {
   const [cart, setCart] = useState([]);
   const [cartOpen, setCartOpen] = useState(false);
 
-  // 🔔 navbar notification
+  // Navbar notification message
   const [notif, setNotif] = useState("");
 
-  // 🎉 success popup
+  // Success popup on order placement
   const [successPopup, setSuccessPopup] = useState(false);
 
+  // Camera product data
   const products = [
     {
       id: 1,

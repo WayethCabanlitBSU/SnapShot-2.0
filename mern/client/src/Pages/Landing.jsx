@@ -16,6 +16,7 @@ import woman from "../assets/woman.jpg";
 import woman2 from "../assets/woman2.jpg";
 import man2 from "../assets/man2.jpg";
 
+// Landing/home page with hero section and product showcase
 export default function Landing() {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(null);
@@ -24,6 +25,7 @@ export default function Landing() {
 
   const menuIconClass = isOpen ? "ri-close-line" : "ri-menu-line";
 
+  // Check for logged-in user on component mount
   useEffect(() => {
     // Check if user is logged in
     const userFromStorage = localStorage.getItem("user");
@@ -51,6 +53,7 @@ export default function Landing() {
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);  }, []);
 
+  // Clear user data and redirect to landing
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("isLoggedIn");
@@ -59,6 +62,7 @@ export default function Landing() {
     navigate("/");
   };
 
+  // ScrollReveal animation options
   const scrollRevealOption = useMemo(
     () => ({
       origin: "bottom",
@@ -68,6 +72,7 @@ export default function Landing() {
     []
   );
 
+  // Initialize ScrollReveal animations on page load
   useEffect(() => {
     // ---- ScrollReveal ----
     const sr = ScrollReveal();

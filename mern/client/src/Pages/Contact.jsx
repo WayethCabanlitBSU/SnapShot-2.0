@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./Contact.css";
 
+// Contact form page - stores messages in MongoDB
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -16,6 +17,7 @@ export default function Contact() {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Update form fields as user types
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -24,6 +26,7 @@ export default function Contact() {
     }));
   };
 
+  // Send contact message to API
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);

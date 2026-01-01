@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+// Navbar for landing page with smooth scroll navigation
 export default function LandingNavbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -8,7 +9,7 @@ export default function LandingNavbar() {
 
   const menuIconClass = isOpen ? "ri-close-line" : "ri-menu-line";
 
-  // Go to landing page then scroll to section
+  // Scroll to section or navigate to landing first if needed
   const goToSection = (id) => {
     setIsOpen(false);
 

@@ -6,6 +6,7 @@ import Contact from "./Pages/Contact";
 import Signup from "./Pages/Signup";
 import Login from "./Pages/Login";
 
+// Main routing component - sets up all app routes
 export default function App() {
   return (
     <Routes>

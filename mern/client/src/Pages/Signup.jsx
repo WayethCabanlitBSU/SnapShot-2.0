@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "./Signup.css";
 
+// User registration page - creates new account in MongoDB
 export default function Signup() {
   const [formData, setFormData] = useState({
     name: "",
@@ -17,6 +18,7 @@ export default function Signup() {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
+  // Update form state as user types
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -25,6 +27,7 @@ export default function Signup() {
     }));
   };
 
+  // Send signup data to API and store user in localStorage
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);

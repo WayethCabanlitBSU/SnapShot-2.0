@@ -2,16 +2,19 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
+// Display user order history
 export default function Orders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  // Fetch orders from API on page load
   useEffect(() => {
     fetchOrders();
   }, []);
 
+  // Retrieve all orders from database
   const fetchOrders = async () => {
     try {
       setLoading(true);

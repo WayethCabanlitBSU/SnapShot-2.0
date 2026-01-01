@@ -5,7 +5,7 @@ import App from "./App";
 import "./index.css";
 import "remixicon/fonts/remixicon.css";
 
-
+// Bootstrap the app with router and render to DOM
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>

@@ -1,3 +1,4 @@
+// Card component to display individual camera products
 export default function ProductCard({ product, addToCart }) {
   return (
     <div className="bg-white shadow-lg rounded-3xl overflow-hidden p-5 product-card">
