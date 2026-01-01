@@ -198,6 +198,62 @@ export default function Home() {
           onOrderComplete={handleOrderComplete}
         />
       )}
+
+      {/* Footer */}
+      <footer id="contact">
+        <div className="section__container footer__container">
+          <div className="footer__col">
+            <div className="footer__logo">
+              <a href="#home" className="logo">SnapShot</a>
+            </div>
+            <p>
+              Explore the world through the lens of creativity with SnapShot, your ultimate photography platform.
+            </p>
+            <ul className="footer__socials">
+              <li><a href="#"><i className="ri-facebook-fill"></i></a></li>
+              <li><a href="#"><i className="ri-instagram-line"></i></a></li>
+              <li><a href="#"><i className="ri-youtube-line"></i></a></li>
+            </ul>
+          </div>
+
+          <div className="footer__col">
+            <h4>Quick Links</h4>
+            <ul className="footer__links">
+              <li><a href="#home">HOME</a></li>
+              <li><a href="#about">ABOUT</a></li>
+              <li><a href="#service">SERVICE</a></li>
+              <li><a href="#cameras">CAMERAS</a></li>
+            </ul>
+          </div>
+
+          <div className="footer__col">
+            <h4>Contact Us</h4>
+            <ul className="footer__links">
+              <li>
+                <a href="#"><span><i className="ri-phone-fill"></i></span> +971 55 224 8602</a>
+              </li>
+              <li>
+                <a href="#"><span><i className="ri-record-mail-line"></i></span> support@snapshot.com</a>
+              </li>
+              <li>
+                <a href="#"><span><i className="ri-map-pin-2-fill"></i></span> RAK, UAE</a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="footer__col">
+            <h4>Subscribe</h4>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <input type="text" placeholder="Enter your email" />
+              <button className="btn btn-enhanced" type="submit">Subscribe</button>
+            </form>
+          </div>
+        </div>
+
+        <div className="footer__bar">
+          Copyright © 2025 Wayeth Ken C. Cabanlit. All rights reserved.
+        </div>
+      </footer>
     </div>
   );
 }

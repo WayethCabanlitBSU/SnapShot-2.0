@@ -18,10 +18,46 @@ import man2 from "../assets/man2.jpg";
 
 export default function Landing() {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const swiperInstanceRef = useRef(null);
   const navigate = useNavigate();
 
   const menuIconClass = isOpen ? "ri-close-line" : "ri-menu-line";
+
+  useEffect(() => {
+    // Check if user is logged in
+    const userFromStorage = localStorage.getItem("user");
+    if (userFromStorage) {
+      try {
+        setUser(JSON.parse(userFromStorage));
+      } catch (err) {
+        console.error("Error parsing user data:", err);
+      }
+    }
+    // Listen for storage changes
+    const handleStorageChange = () => {
+      const updatedUser = localStorage.getItem("user");
+      if (updatedUser) {
+        try {
+          setUser(JSON.parse(updatedUser));
+        } catch (err) {
+          console.error("Error parsing user data:", err);
+        }
+      } else {
+        setUser(null);
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("isLoggedIn");
+    setUser(null);
+    setIsOpen(false);
+    navigate("/");
+  };
 
   const scrollRevealOption = useMemo(
     () => ({
@@ -33,7 +69,7 @@ export default function Landing() {
   );
 
   useEffect(() => {
-    // ---- ScrollReveal (same as your main.js) ----
+    // ---- ScrollReveal ----
     const sr = ScrollReveal();
 
     sr.reveal(".header__image img", { ...scrollRevealOption, origin: "right" });
@@ -51,7 +87,7 @@ export default function Landing() {
     sr.reveal(".banner__card", { ...scrollRevealOption, interval: 500 });
     sr.reveal(".more__card", { ...scrollRevealOption, interval: 500 });
 
-    // ---- Swiper (same as your main.js) ----
+    // ---- Swiper ----
     if (swiperInstanceRef.current?.destroy) {
       swiperInstanceRef.current.destroy(true, true);
     }
@@ -75,7 +111,7 @@ export default function Landing() {
       <nav>
         <div className="nav__header">
           <div className="nav__logo">
-            <a href="#home" className="logo">
+            <a href="#home" className="logo" onClick={() => setIsOpen(false)}>
               SnapShot
             </a>
           </div>
@@ -94,23 +130,57 @@ export default function Landing() {
           id="nav-links"
           onClick={() => setIsOpen(false)} // close menu when any link is clicked
         >
+          {/* ✅ Keep anchors for same-page sections (keeps original CSS/icons look) */}
           <li><a href="#home">HOME</a></li>
           <li><a href="#about">ABOUT</a></li>
           <li><a href="#service">SERVICE</a></li>
-          <li><a href="/home">CAMERAS</a></li>
-          <li><a href="#contact">CONTACT</a></li>
 
-          {/* ✅ React Router link instead of <a href="/signup"> */}
+          {/* ✅ Shop page route (no refresh) */}
           <li>
-            <Link to="/signup">SIGN UP</Link>
+            <Link to="/home">CAMERAS</Link>
           </li>
+
+          <li><Link to="/contact">CONTACT</Link></li>
+
+          {/* ✅ Signup/Logout route */}
+          {!user ? (
+            <li>
+              <Link to="/signup">SIGN UP</Link>
+            </li>
+          ) : (
+            <li>
+              <button type="button" onClick={handleLogout} style={{ color: "#ff6b6b", background: "none", border: "none", cursor: "pointer", fontSize: "1rem" }}>
+                LOGOUT
+              </button>
+            </li>
+          )}
         </ul>
 
         <div className="nav__btns">
-          {/* ✅ React Router link (no page refresh) */}
-          <button className="btn" type="button" onClick={() => navigate("/signup")}>
-            SIGN UP
-          </button>
+          {user ? (
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", whiteSpace: "nowrap", flexShrink: 1, minWidth: 0 }}>
+              <span style={{ color: "#000", fontWeight: "600", fontSize: "0.95rem", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: "100px", flexShrink: 1 }}>
+                👤 {user.name}
+              </span>
+              <button
+                className="btn btn-enhanced"
+                type="button"
+                onClick={handleLogout}
+                style={{ padding: "0.75rem 1.25rem", fontSize: "0.9rem", whiteSpace: "nowrap", flexShrink: 0 }}
+              >
+                LOGOUT
+              </button>
+            </div>
+          ) : (
+            <button
+              className="btn btn-enhanced"
+              type="button"
+              onClick={() => navigate("/signup")}
+              style={{ padding: "0.75rem 1.75rem", fontSize: "0.95rem", whiteSpace: "nowrap", flexShrink: 0 }}
+            >
+              SIGN UP
+            </button>
+          )}
         </div>
       </nav>
 
@@ -122,7 +192,9 @@ export default function Landing() {
             <h1>Turn Every Moment into a Masterpiece!</h1>
 
             <div className="header__btns">
-              <button className="btn" type="button">Inquire Now!</button>
+              <button className="btn inquire-btn" type="button" onClick={() => navigate("/contact")}>
+                Inquire Now!
+              </button>
               <a href="#contact" aria-label="Go to contact">
                 <span><i className="ri-play-circle-fill"></i></span>
               </a>
@@ -247,9 +319,8 @@ export default function Landing() {
             Let us inspire you as you discover the art of storytelling through the lens.
           </p>
 
-          {/* ✅ Goes to your Shop page /home */}
           <div className="service__btn">
-            <button className="btn" type="button" onClick={() => navigate("/home")}>
+            <button className="btn service-btn-enhanced" type="button" onClick={() => navigate("/home")}>
               Shop Cameras Now ➜
             </button>
           </div>
@@ -305,7 +376,6 @@ export default function Landing() {
 
         <div className="swiper">
           <div className="swiper-wrapper">
-            {/* slides unchanged */}
             <div className="swiper-slide">
               <div className="review__card">
                 <div className="review__content">
@@ -316,9 +386,10 @@ export default function Landing() {
                     <span><i className="ri-star-fill"></i></span>
                     <span><i className="ri-star-fill"></i></span>
                   </div>
-                  <p>"SnapShot has completely revolutionized the way I capture moments. From everyday scenes to unforgettable
-                trips, their cameras deliver unmatched quality and ease of use. I can't recommend SnapShot enough for
-                anyone looking to elevate their photography game!"</p>
+                  <p>
+                    "SnapShot has completely revolutionized the way I capture moments. From everyday scenes to unforgettable
+                    trips, their cameras deliver unmatched quality and ease of use..."
+                  </p>
                 </div>
                 <div className="review__details">
                   <img src={man} alt="review" />
@@ -340,9 +411,10 @@ export default function Landing() {
                     <span><i className="ri-star-fill"></i></span>
                     <span><i className="ri-star-fill"></i></span>
                   </div>
-                  <p>"My recent photoshoot with SnapShot's equipment was a dream come true! The high-quality lenses and
-                intuitive design allowed me to capture every detail beautifully. I'm already planning my next
-                photography session!"</p>
+                  <p>
+                    "My recent photoshoot with SnapShot's equipment was a dream come true! The high-quality lenses and
+                    intuitive design allowed me to capture every detail beautifully..."
+                  </p>
                 </div>
                 <div className="review__details">
                   <img src={woman} alt="review" />
@@ -364,9 +436,10 @@ export default function Landing() {
                     <span><i className="ri-star-fill"></i></span>
                     <span><i className="ri-star-fill"></i></span>
                   </div>
-                  <p>"SnapShot provided the perfect tools for my documentary project. Their customizable gear and expert
-                support helped me bring my vision to life with stunning clarity and precision. I highly recommend
-                SnapShot to all photography enthusiasts!"</p>
+                  <p>
+                    "SnapShot provided the perfect tools for my documentary project. Their customizable gear and expert
+                    support helped me bring my vision to life..."
+                  </p>
                 </div>
                 <div className="review__details">
                   <img src={woman2} alt="review" />
@@ -399,6 +472,7 @@ export default function Landing() {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -449,7 +523,7 @@ export default function Landing() {
             <h4>Subscribe</h4>
             <form onSubmit={(e) => e.preventDefault()}>
               <input type="text" placeholder="Enter your email" />
-              <button className="btn" type="submit">Subscribe</button>
+              <button className="btn btn-enhanced" type="submit">Subscribe</button>
             </form>
           </div>
         </div>

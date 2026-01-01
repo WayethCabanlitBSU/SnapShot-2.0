@@ -1,5 +1,6 @@
 // client/src/components/CartDrawer.jsx
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CartDrawer({
   cart,
@@ -16,6 +17,7 @@ export default function CartDrawer({
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const total = cart
     .reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -49,20 +51,28 @@ export default function CartDrawer({
         phone: form.phone,
       };
 
-      const res = await fetch("http://localhost:5050/api/orders", {
+      const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
 
-      if (!res.ok) throw new Error(await res.text());
+      console.log("📨 Order response status:", res.status);
 
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        console.error("❌ Server error response:", errorData);
+        throw new Error(errorData.details || errorData.error || "Failed to place order");
+      }
+
+      const orderData = await res.json();
+      console.log("✅ Order response:", orderData);
       setMessage("✅ Order placed successfully!");
       setForm({ name: "", email: "", address: "", phone: "" });
 
       if (onOrderComplete) onOrderComplete();
     } catch (err) {
-      console.error(err);
+      console.error("❌ Error:", err.message);
       setMessage("❌ Failed to place order. Please try again.");
     } finally {
       setLoading(false);
@@ -75,9 +85,21 @@ export default function CartDrawer({
       {/* HEADER */}
       <div className="flex justify-between items-center p-6">
         <h2 className="text-2xl font-bold">Your Cart</h2>
-        <button onClick={closeCart} className="text-gray-500 hover:text-black text-xl">
-          ✕
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => {
+              closeCart();
+              navigate("/orders");
+            }}
+            className="text-sm px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
+            title="View your orders"
+          >
+            📋 Orders
+          </button>
+          <button onClick={closeCart} className="text-gray-500 hover:text-black text-xl">
+            ✕
+          </button>
+        </div>
       </div>
 
       {/* CLEAR CART BUTTON */}
@@ -173,7 +195,7 @@ export default function CartDrawer({
           <button
             type="submit"
             disabled={loading || cart.length === 0}
-            className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800 transition disabled:opacity-60 disabled:cursor-not-allowed btn-enhanced"
           >
             {loading ? "Placing Order..." : "Place Order"}
           </button>
