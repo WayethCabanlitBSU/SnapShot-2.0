@@ -14,10 +14,20 @@ export default function Orders() {
     fetchOrders();
   }, []);
 
-  // Retrieve all orders from database
+  // Retrieve user's orders from database
   const fetchOrders = async () => {
     try {
       setLoading(true);
+      
+      // Get user from localStorage
+      const user = JSON.parse(localStorage.getItem("user"));
+      
+      // If no user logged in, redirect to login
+      if (!user || !user.email) {
+        navigate("/login");
+        return;
+      }
+
       const res = await fetch("/api/orders");
       
       if (!res.ok) {
@@ -25,7 +35,11 @@ export default function Orders() {
       }
       
       const data = await res.json();
-      setOrders(data || []);
+      
+      // Filter orders by current user's email
+      const userOrders = data.filter(order => order.email === user.email);
+      
+      setOrders(userOrders || []);
       setError("");
     } catch (err) {
       console.error(err);
